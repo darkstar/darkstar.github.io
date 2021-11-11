@@ -1,0 +1,7 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+// Disable the huge "view on github" button
+section#downloads { display: none; }
