@@ -5,3 +5,61 @@
 
 // Disable the huge "view on github" button
 section#downloads { display: none; }
+
+// make the page a bit wider
+div.container {
+    max-width: 1200px;
+}
+
+// some nice red warnings
+p.warning::before
+{
+    content: "Warning: ";
+    font-weight: bold;
+}
+p.warning
+{
+    border-radius: 6px 10px 10px 6px;
+    background-color: #550000;
+    background-image: url(/assets/warning-icon.webp);
+    background-position: 9px 0px;
+    background-repeat: no-repeat;
+    border: solid 1px #cc0000;
+    border-left: solid 6px #cc0000;
+    line-height: 18px;
+    overflow: hidden;
+    padding: 15px 60px;
+}
+
+// nice blue notices
+p.notice::before
+{
+    content: "Info: ";
+    font-weight: bold;
+}
+p.notice {
+    border-radius: 6px 10px 10px 6px;
+    background-color: #000033;
+    background-image: url(/assets/notice-icon.webp);
+    background-position: 9px 0px;
+    background-repeat: no-repeat;
+    border: solid 1px #4444ff;
+    border-left: solid 6px #4444ff;
+    line-height: 18px;
+    overflow: hidden;
+    padding: 15px 60px;
+}
+
+// nice yellow tips for excercises etc.
+p.tip {
+    border-radius: 6px 10px 10px 6px;
+    background-color: #282800;
+    background-image: url(/assets/tip-icon.webp);
+    background-position: 9px 0px;
+    background-repeat: no-repeat;
+    border: solid 1px #cccc00;
+    border-left: solid 6px #cccc00;
+    line-height: 18px;
+    overflow: hidden;
+    padding: 15px 60px;
+}
