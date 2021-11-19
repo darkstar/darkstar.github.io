@@ -181,6 +181,27 @@ And put this in your `/etc/fstab`:
 
 Do a `mount -a` and check if `/k8s-data` is properly mounted (for example by using `df`). 
 
+Another good idea, at least on a RaspberryPi with an SD card, is to disable swap entirely. There have been known problems with swap enabled and k3s, and the 100mb swapfile that Raspbian creates is not very helpful anyway, since it is so small.
+
+To disable swap, use the following commands:
+
+    pi@raspberrypi:~ $ sudo dphys-swapfile swapoff
+    pi@raspberrypi:~ $ sudo dphys-swapfile uninstall
+    pi@raspberrypi:~ $ sudo update-rc.d dphys-swapfile remove
+    pi@raspberrypi:~ $ sudo apt-get purge -y dphys-swapfile
+
+Another source of [many][iptables1] [annoying][iptables2] [problems][iptables3] is a broken version of the `iptables` command that Raspbian apparently ships. If you have an iptables version of 1.8.2 (or anything lower than 1.8.6 apparently) then you might see increased CPU and memory load on your RaspberryPi over the next few days, caused by the iptables firewall rules growing to multiple megabytes due to repeated redundant entries. K3s actually ships their own version of the `iptables` binary, and that one is version 1.8.6, which works fine. To check your current iptables size you can use this command:
+
+    pi@raspberrypi:~ $ sudo iptables -L | wc -c
+    # Warning: iptables-legacy tables present, use iptables-legacy to see them
+    4675712
+
+The easiest way to fix this issue is to simply remove the `iptables` and/or `nftables` binary from Raspbian to force k3s to use its bundled version:
+
+    pi@raspberrypi:~ $ iptables --version
+    iptables v1.8.2 (nf_tables)
+    pi@raspberrypi:~ $ sudo apt-get remove -y iptables nftables
+
 Finally, install some helpful packages and update the whole system by doing a full upgrade followed by a reboot:
 
     sudo apt-get update --allow-releaseinfo-change && \
@@ -192,6 +213,9 @@ After that reboot, your RaspberryPi should be ready!
 
 [raspbian_dl]: https://downloads.raspberrypi.org/raspios_arm64/images/raspios_arm64-2021-05-28/
 [wifi_first_boot]: https://howchoo.com/g/ndy1zte2yjn/how-to-set-up-wifi-on-your-raspberry-pi-without-ethernet
+[iptables1]: https://github.com/k3s-io/k3s/issues/294
+[iptables2]: https://github.com/k3s-io/k3s/issues/3117
+[iptables3]: https://github.com/k3s-io/k3s/issues/4460
 
 ## Setting up your Router
 
