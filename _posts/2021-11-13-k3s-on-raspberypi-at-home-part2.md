@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "k3s on a Raspberry Pi 4 at home, Part 2"
-date:   2021-11-12 12:00:00 +0100
+date:   2021-11-13 12:00:00 +0100
 tags:   raspberrypi k3s
 ---
 
