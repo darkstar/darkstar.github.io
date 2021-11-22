@@ -288,14 +288,5 @@ Apply this to the cluster and wait a few seconds for the certificate enrollment 
 
 Try accessing your site, it should work with both `http://wp.dark.star` and `https://wp.dark.star`.
 
-## Outlook
-
-Now that we have deployed two apps, we will wrap it up for today. This guide is designed to grow with time, and some things I would like to add are mentioned here. Feel free to suggest any topics you would like to see covered.
-
-* Persistent Volumes (longhorn or nfs-subdir-external-provisioner)
-* Deploy NextCloud or OwnCloud to the cluster
-* Scaling our cluster to multiple nodes (required for longhorn for example)
-* Path-Based Routing
-* Dashboards / Frontends
-* Monitoring
+In the next part we will set up a NextCloud instance on our RaspberryPi.
 

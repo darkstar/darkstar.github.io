@@ -79,7 +79,7 @@ Some objects (mainly pods and jobs) have logs that you can view. To do that use 
 
 The logs command is one of the few commands where you have to use the `{ object }/{ identifier }` syntax. If you don't specify an object type, it will default to pods.
 
-The most important command, however, is `kubectl apply`. In practice, you mainly use this command to interact with the objects of your cluster. The apply command takes a YAML file and creates or updates the resource (or resources) defined in this file. When you later edit and change the file, you just use `kubectl apply` again.
+The most important command, however, is `kubectl apply`. In practice, you mainly use this command to interact with the objects of your cluster. The apply command takes a YAML file (called _manifest_ in Kubernetes) and creates or updates the resource (or resources) defined in this file. When you later edit and change the file, you just use `kubectl apply` again.
 
     kubectl apply -f { filename.yaml }
 
