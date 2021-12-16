@@ -111,8 +111,8 @@ Try logging in with SSH, this should work out of the box (the default username i
     The authenticity of host '192.168.1.167 (192.168.1.167)' can't be established.
     ECDSA key fingerprint is SHA256:Qy/vVEj7qreuhefe2Hbpfzm+Sd2taYs3ererCWWCGRA.
     Are you sure you want to continue connecting (yes/no)? yes
-    Warning: Permanently added '192.168.1.3' (ECDSA) to the list of known hosts.
-    pi@192.168.1.3's password:
+    Warning: Permanently added '192.168.1.167' (ECDSA) to the list of known hosts.
+    pi@192.168.1.167's password:
     Linux raspberrypi 5.10.63-v8+ #1459 SMP PREEMPT Wed Oct 6 16:42:49 BST 2021 aarch64
     
     The programs included with the Debian GNU/Linux system are free software;
@@ -258,9 +258,10 @@ Now look in the box at the bottom of the page for the URLs you need for the dyna
 
 Where `<hostname>` is the full hostname (`web.dark.star` or `wp.dark.star` in our case) and `<password>` is the password that was generated for that subdomain. This URL and the two parameters (or four, actually, since we have two subdomains) will be important later, so copy them somewhere.
 
-If you call `curl` with one of these host/password combinations from your RaspberryPi, you should be able to do an `nslookup` request within a couple of minutes and see your IP being returned. Don't forget to put quotes around the URL, otherwise your shell will try and interpret it:
+If you call `curl` with one of these host/password combinations from your RaspberryPi, you should be able to do an `nslookup` or `dig` request within a couple of minutes and see your IP being returned. Don't forget to put quotes around the URL, otherwise your shell will try and interpret it:
 
     pi@raspberrypi:~ $ curl -s "https://dynamicdns.key-systems.net/update.php?hostname=web.dark.star&password=secret123&ip=auto"
+    ...wait a bit...
     pi@raspberrypi:~ $ dig +short web.dark.star
     198.51.100.17
 

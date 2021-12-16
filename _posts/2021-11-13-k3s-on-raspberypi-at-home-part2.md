@@ -83,7 +83,7 @@ The most important command, however, is `kubectl apply`. In practice, you mainly
 
     kubectl apply -f { filename.yaml }
 
-The last command, which we will only briefly mention (because we will need it in a later part of the series), is `kubectl exec` which is used to execute a program (often a shell) inside a running container. If the pod of the application sonsists of only one container, you can also specify the pod where you want to execute a command, but this is just a shortcut: you never execute a command in a _pod_, you always execute them in a _container_.
+The last command, which we will only briefly mention (because we will need it in a later part of the series), is `kubectl exec` which is used to execute a program (often a shell) inside a running container. If the pod of the application consists of only one container, you can also specify the pod where you want to execute a command, but this is just a shortcut: you never execute a command in a _pod_, you always execute them in a _container_.
 
     kubectl exec -it { name-of-pod } -- { name-of-command }
 
