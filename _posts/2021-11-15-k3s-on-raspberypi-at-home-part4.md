@@ -114,6 +114,9 @@ This is called a _headless service_ in Kubernetes. What Kubernetes does in this 
 
 A small "problem" with WordPress is, that is it not able to create a database in the backend by itself. So the administrator has to create an empty database first, and also create a user with full access to the database.
 
+Yes, there are other ways of creating an initial database, and we will be using a different method in the next part. But since this is a "how I learned about k8s"-style post, I thought it would be interesting to also include the more complicated ways I came up with for solving some issues, instead of just providing a clean, easy way.
+{: .notice }
+
 Our Database is already up and running, but it's empty, so how can we create a database inside that running pod?
 
 Of course with the `kubectl exec` command. But what if we do not know the root-password that was used for the MariaDB database? With a few tricks, we can get that out of the Kubernetes secret. This is why we installed the `jq` tool back in part 1.
