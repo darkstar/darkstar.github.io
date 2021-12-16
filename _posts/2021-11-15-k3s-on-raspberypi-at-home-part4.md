@@ -169,7 +169,7 @@ This is everything you need to create a new database called `wordpress`, create 
 
 Now for the actual Web frontend, we again need a deployment and a service.
 
-Here's the `wp-wordpress-service.yaml` file. Did you know that you can apply manifests (aka. YAML files) in any order, and Kubernetes will take care of all your dependencies? So let's start with the service first, this time:
+Here's the `wp-wordpress-service.yaml` file:
 
 {% highlight yaml %}
 apiVersion: v1
@@ -187,6 +187,11 @@ spec:
     app: wordpress
     tier: frontend
 {% endhighlight %}
+
+Did you know that you can apply manifests (aka. YAML files) in any order, and Kubernetes will take care of all your dependencies? So let's start with the service first, this time:
+
+    pi@raspberrypi:~ $ kubectl apply -f wp-wordpress-service.yaml
+    service/wordpress created
 
 Since we do not yet have an app that matches this services's selector, it will wait until it can find one. So now let's look at the deployment, `wp-wordpress-deployment.yaml`:
 
