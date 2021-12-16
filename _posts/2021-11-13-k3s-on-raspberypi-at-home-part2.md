@@ -291,7 +291,7 @@ To see if the job went through, let's just describe it:
       Normal  SuccessfulCreate  51s   job-controller  Created pod: testjob1-dplw5
       Normal  Completed         47s   job-controller  Job completed
 
-We see at the end that the job completed successfully. We can also request the actual logs by using `kubectl -n dyndns-updater logs job/testjob1` but that might include the hostname and password in clear text, as it will be present in the URL that wget might logs to stdout (not in our case, but if you add a `-v` option to the wget command line for troubleshooting, it would be present):
+We see at the end that the job completed successfully. We can also request the actual logs by using `kubectl -n dyndns-updater logs job/testjob1`, but that could potentially include the hostname and password in clear text, as those are present in the URL that wget might log to stdout (not in our case, but if you add a `-v` option to the wget command line for troubleshooting, it would be present):
 
     pi@raspberrypi:~$ kubectl -n dyndns-updater logs job/testjob1
     wget: note: TLS certificate validation not implemented
@@ -307,7 +307,7 @@ The cronjob will automatically clean up (i.e. delete) old jobs and only keep the
     pi@raspberrypi:~ $ kubectl get all -n dyndns-updater
     NAME                                READY   STATUS      RESTARTS   AGE
     pod/testjob1-dplw5                  0/1     Completed   0          90m
-    pod/dyndns-web-job-27278931-5rn33   0/1     Completed   0          60s
+    pod/dyndns-web-job-27278931-5rn33   0/1     Completed   0          60m
     pod/dyndns-web-job-27278893-9n9d2   0/1     Completed   0          41s
     
     NAME                           SCHEDULE     SUSPEND   ACTIVE   LAST SCHEDULE   AGE
@@ -324,7 +324,7 @@ As an excercise, you will now create the second cronjob definition for the `wp.d
 
 ## Install cert-manager for automatic LetsEncrypt certificates
 
-Now we need to install the cert-manager, which will be used to automatically generate Let's Encrypt certificates for our ingresses. Note that even though Traekik, the default network stack in k3s, can technically do that as well, it is not as sophisticated as cert-manager (for example, Traefik stores the certificates in regular files instead of Kubernetes secrets).
+Now we need to install the cert-manager, which will be used to automatically generate Let's Encrypt certificates for our ingresses. Note that even though Traefik, the default network stack in k3s, can technically do that as well, it is not as sophisticated as cert-manager (for example, Traefik stores the certificates in regular files instead of Kubernetes secrets).
 
 First we will create a new namespace for the cert-manager. Save this as `cert-manager-namespace.yaml` and apply it to your cluster:
 

@@ -206,7 +206,7 @@ Note however, that trying to access the IP of your router directly will not yiel
     pi@raspberrypi:~ $ curl http://198.51.100.17
     404 page not found
 
-This is because the Traefik needs a hostname so that it can route the request to the correct ingress->service->pod, but without a hostname it doesn't know what to do. So it instead routes the traffic to a _default backend_, which, by default, doesn't exist, and so Traefik returns a 404 error to the client.
+This is because Traefik needs a hostname so that it can route the request to the correct ingress->service->pod, but without a hostname it doesn't know what to do. So it instead routes the traffic to a _default backend_, which, by default, doesn't exist, and so Traefik returns a 404 error to the client.
 
 To enable TLS for HTTPS, we need to change the YAML file slightly. Edit the `web-ingress.yaml` file and make the following changes:
 
@@ -249,7 +249,7 @@ You should now see a certificate being created, and after a few seconds it shoul
 
     pi@raspberrypi:~ $ kubectl get certificates -n web
     NAME                  READY   SECRET                AGE
-    web-darkstar-me-tls   True    web-darkstar-me-tls   54s
+    web-dark-star-tls     True    web-dark-star-tls     54s
 
 Try accessing your site through https, this should now work.
 
