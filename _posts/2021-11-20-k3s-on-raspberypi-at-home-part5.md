@@ -122,7 +122,7 @@ Some things to note:
 * We set the `MYSQL_DATABASE`, `MYSQL_USER`, `MYSQL_PASSWORD` and `MYSQL_ROOT_PASSWORD` environment variables to have MariaDB create a database for us automatically on startup, and grant a user full access to it. The two passwords come from different keys in the secret we deployed before.
 * The database directory will be `/k8s-data/cloud.dark.star/db`
 
-We could have done it like in part 4 and manually created the database, but I wanted to show multiple different ways of achieving the same end result, so that's why we did it differently this time.
+We could have done it like in part 4 and manually created the database, but I wanted to show multiple different ways of achieving the same end result, so that's why we did it differently this time[^1].
 
 The service for the database will again be a headless service, we don't need the internal loadbalancer for it as we are pretty sure that we always only have one database backend pod running, so here is `cloud-db-service.yaml`:
 
@@ -407,6 +407,8 @@ This is it, now you can set up NextCloud as you want.
 
 Note that there is still the issue that the Collabora CODE server could not be installed during the initial setup. It is by default only available for x86_64, although there are ARM and ARM64 versions of it around. Keep watching this space as there will probably be a guide on how to install it later, as soon as I get around to fiddling with it.
 {: .notice}
+
+[^1]: Well, to be honest, I didn't know about this method when I wrote part 4, so after I found out that MariaDB can automatically create a database for us, I used this simpler method here...
 
 ## Outlook
 
