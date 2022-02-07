@@ -335,32 +335,30 @@ metadata:
   name: cert-manager
 {% endhighlight %}
 
+Create the namespace in your cluster:
+
     pi@raspberrypi:~ $ kubectl apply -f cert-manager-namespace.yaml
     namespace/cert-manager created
 
-Since cert-manager is a rather big project, we will be downloading the YAML file to deploy it directly from its GitHub repository. However, that YAML file is preconfigured for the x86_64 architecture, so we need to modify it for arm64 to be usable on the RaspberryPi. The following two commands accomplish this:
+Since cert-manager is a rather big project, we will be downloading the YAML file to deploy it directly from its GitHub repository.
 
-    curl -sLO https://github.com/jetstack/cert-manager/releases/download/v1.3.1/cert-manager.yaml
-    sed -r 's/(image:.*):(v.*)$/\1-arm64:\2/g' cert-manager.yaml > cert-manager-arm64.yaml
-
-The file `cert-manager-arm64.yaml` will have all image names replaced by their arm64 variants. After this you can delete the `cert-manager.yaml` file as it will not be needed anymore.
-
-If you are _not_ using a RaspberryPi, you will need the original file, and that file only. In that case, skip the `sed` command above and continue with the `cert-manager.yaml` file.
+Earlier versions of this post mentioned version 1.3 of cert-manager, and also described changing all image references in the YAML manifest to their arm64 counterparts. This is no longer neccessary, as the quay.io registry supports multi-architecture images and k8s will automatically fetch the correct architecture. We will still be using the 1.4.4 version as I have not tested newer versions yet. It should be possible to use at least an 1.5 or 1.6 version. When I have tested that it works, I will update this post.
 {: .notice}
 
-We are using cert-manager version 1.3.1 above, as that is what I originally tested with. It should be no problem to replace that with the most recent 1.4 or 1.5 version, and probably even with 1.6. I will test that in my lab setup and change the above instructions accordingly after I successfully tested a newer version.
-{: .notice}
+Use the following command to download the cert-manager manifest:
+
+    curl -sLO https://github.com/cert-manager/cert-manager/releases/download/v1.4.4/cert-manager.yaml
 
 Now, install cert-manager into the cluster. Many objects will be created and it will take a while util all pods are up and running:
 
-    pi@raspberrypi:~ $ kubectl apply -f cert-manager-arm64.yaml 
+    pi@raspberrypi:~ $ kubectl apply -f cert-manager.yaml
     customresourcedefinition.apiextensions.k8s.io/certificaterequests.cert-manager.io created
     customresourcedefinition.apiextensions.k8s.io/certificates.cert-manager.io created
     customresourcedefinition.apiextensions.k8s.io/challenges.acme.cert-manager.io created
     customresourcedefinition.apiextensions.k8s.io/clusterissuers.cert-manager.io created
     customresourcedefinition.apiextensions.k8s.io/issuers.cert-manager.io created
     customresourcedefinition.apiextensions.k8s.io/orders.acme.cert-manager.io created
-    namespace/cert-manager configured
+    namespace/cert-manager unchanged
     serviceaccount/cert-manager-cainjector created
     serviceaccount/cert-manager created
     serviceaccount/cert-manager-webhook created
@@ -374,6 +372,7 @@ Now, install cert-manager into the cluster. Many objects will be created and it 
     clusterrole.rbac.authorization.k8s.io/cert-manager-view created
     clusterrole.rbac.authorization.k8s.io/cert-manager-edit created
     clusterrole.rbac.authorization.k8s.io/cert-manager-controller-approve:cert-manager-io created
+    clusterrole.rbac.authorization.k8s.io/cert-manager-controller-certificatesigningrequests created
     clusterrole.rbac.authorization.k8s.io/cert-manager-webhook:subjectaccessreviews created
     clusterrolebinding.rbac.authorization.k8s.io/cert-manager-cainjector created
     clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-issuers created
@@ -383,6 +382,7 @@ Now, install cert-manager into the cluster. Many objects will be created and it 
     clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-challenges created
     clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim created
     clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-approve:cert-manager-io created
+    clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-certificatesigningrequests created
     clusterrolebinding.rbac.authorization.k8s.io/cert-manager-webhook:subjectaccessreviews created
     role.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection created
     role.rbac.authorization.k8s.io/cert-manager:leaderelection created
