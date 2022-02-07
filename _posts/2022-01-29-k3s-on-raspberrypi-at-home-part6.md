@@ -155,7 +155,7 @@ If the pod still fails to come up (CrashLoopBackOff), check its logs for some hi
     archive-68fc697c66-bft5x   1/1     Running   3          88m
     pi@raspberrypi:~ $ kubectl logs -n archive archive-68fc697c66-bft5x
 
-The usual suspects are: running as root, no write permission to /data (or rather to /k8s-data/vault.dark.star/data), or invalid user ID in the deployment.
+The usual suspects are: running as root, no write permission to /data (or rather to /k8s-data/archive.dark.star/data), or invalid user ID in the deployment.
 
 Now you should already be able to access the web UI by browsing to `https://archive.dark.star`. It should look something like this
 ![ArchiveBox UI](/assets/images/k3s_06_archivebox.png)
